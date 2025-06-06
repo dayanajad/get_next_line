@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 00:47:49 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/07 02:10:21 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/07 04:08:38 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ char	*update_stash(char *stash)
 	}
 	new_stash = ft_strdup(npos + 1);
 	free (stash);
+	if (!new_stash || !(*new_stash))
+		return (free (new_stash), NULL);
 	return (new_stash);
 }
 
-char	*get_next_line(int fd)
+char	*read_and_stash(int fd, char *stash)
 {
-	static char	*stash;
-	char		*buffer;
-	char		*line;
-	ssize_t		bytes;
+	char	*buffer;
+	char	*temp;
+	ssize_t	bytes;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
@@ -64,20 +63,46 @@ char	*get_next_line(int fd)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
-		{
-			free (buffer);
-			return (NULL);
-		}
+			return (free (buffer), free (stash), NULL);
 		buffer[bytes] = '\0';
-		stash = ft_strjoin(stash, buffer);
+		temp = ft_strjoin(stash, buffer);
+		if (!temp || !(*temp))
+		{
+			free (temp);
+			free (buffer);
+			return (free (stash), NULL);
+		}
+		free (stash);
+		stash = temp;
 	}
-	free (buffer);
-	line = extract_line(stash);
-	return (stash = update_stash(stash), line);
+	return (free (buffer), stash);
 }
 
+char	*get_next_line(int fd)
+{
+	static char	*stash;
+	char		*line;
 
-#include <fcntl.h>    // for open()
+	if (fd == -1)
+	{
+		free (stash);
+		stash = NULL;
+		return (NULL);
+	}
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	stash = read_and_stash(fd, stash);
+	if (!stash)
+	{
+		stash = NULL;
+		return (NULL);
+	}
+	line = extract_line(stash);
+	stash = update_stash(stash);
+	return (line);
+}
+
+/* #include <fcntl.h>    // for open()
 #include <stdio.h>    // for printf()
 
 int main(void)
@@ -100,5 +125,4 @@ int main(void)
 
     close(fd);
     return (0);
-}
-
+} */

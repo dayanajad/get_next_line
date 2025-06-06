@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 00:30:03 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/07 01:53:07 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/07 03:13:55 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strndup(char const *s, size_t len)
 		new[i] = s[i];
 		i++;
 	}
-	new[len] = '\0';
+	new[i] = '\0';
 	return (new);
 }
 
