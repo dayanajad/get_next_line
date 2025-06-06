@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 00:47:49 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/07 04:08:38 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/07 04:19:04 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,3 @@ char	*get_next_line(int fd)
 	stash = update_stash(stash);
 	return (line);
 }
-
-/* #include <fcntl.h>    // for open()
-#include <stdio.h>    // for printf()
-
-int main(void)
-{
-    int     fd;
-    char    *line;
-
-    fd = open("test.txt", O_RDONLY);
-    if (fd < 0)
-    {
-        perror("open failed");
-        return (1);
-    }
-
-    while ((line = get_next_line(fd)))
-    {
-        printf("GNL: %s", line);
-        free(line);
-    }
-
-    close(fd);
-    return (0);
-} */
