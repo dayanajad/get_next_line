@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 00:47:49 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/07 04:19:04 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/07 06:19:02 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,6 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd == -1)
-	{
-		free (stash);
-		stash = NULL;
-		return (NULL);
-	}
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = read_and_stash(fd, stash);
