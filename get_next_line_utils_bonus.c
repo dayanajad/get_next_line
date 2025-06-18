@@ -6,11 +6,11 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 06:45:24 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/13 14:20:54 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:59:49 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char const *s)
 {
@@ -88,7 +88,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (joined);
 }
 
-static void	remove_fd_node(t_fd_node **head, int fd)
+void	remove_fd_node(t_fd_node **head, int fd)
 {
 	t_fd_node	*cur;
 	t_fd_node	*prev;

@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 06:48:02 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/13 14:22:35 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:53:26 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	*update_stash(char *stash)
 	return (free (stash), new);
 }
 
-int	read_and_stash(int fd, t_fd_node *node, t_fd_node **fd_list)
+static int	read_and_stash(int fd, t_fd_node *node, t_fd_node **fd_list)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	ssize_t	rd;
@@ -91,7 +91,7 @@ int	read_and_stash(int fd, t_fd_node *node, t_fd_node **fd_list)
 		if (rd <= 0)
 		{
 			if (rd < 0)
-				remove_fd_node(&fd_list, fd);
+				remove_fd_node(fd_list, fd);
 			return (0);
 		}
 		buffer[rd] = '\0';
@@ -109,8 +109,6 @@ char	*get_next_line(int fd)
 {
 	static t_fd_node	*fd_list;
 	t_fd_node			*node;
-	char				buffer[BUFFER_SIZE + 1];
-	ssize_t				rd;
 	char				*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
