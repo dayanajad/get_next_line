@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 06:48:02 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/23 08:16:50 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:26:51 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,23 @@ static int	read_and_stash(int fd, t_fd_node *node, t_fd_node **fd_list)
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (0);
-	while (!(ft_strchr(node->stash, '\n')))
+	rd = 1;
+	while (!(ft_strchr(node->stash, '\n')) && rd > 0)
 	{
 		rd = read(fd, buffer, BUFFER_SIZE);
 		if (rd <= 0)
-		{
-			free (buffer);
-			if (rd < 0 || !node->stash || !*(node->stash))
-			{
-				if (rd < 0)
-					remove_fd_node(fd_list, fd);
-				return (0);
-			}
-			return (1);
-		}
+			break ;
 		buffer[rd] = '\0';
 		temp = ft_strjoin(node->stash, buffer);
 		if (!temp)
-			return (free(buffer), remove_fd_node(fd_list,fd), 0);
-		free (node->stash);
+			return (free(buffer), remove_fd_node(fd_list, fd), 0);
+		free(node->stash);
 		node->stash = temp;
 	}
-	return (free(buffer), 1);
+	free (buffer);
+	if (rd < 0 || !node->stash || !*(node->stash))
+		return (remove_fd_node(fd_list, fd), 0);
+	return (1);
 }
 
 char	*get_next_line(int fd)
