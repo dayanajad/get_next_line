@@ -6,7 +6,7 @@
 /*   By: dbinti-m <dbinti-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 06:45:24 by dbinti-m          #+#    #+#             */
-/*   Updated: 2025/06/18 13:59:49 by dbinti-m         ###   ########.fr       */
+/*   Updated: 2025/06/23 08:20:51 by dbinti-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	remove_fd_node(t_fd_node **head, int fd)
 	t_fd_node	*cur;
 	t_fd_node	*prev;
 
+	if (!head || !*head)
+		return ;
 	cur = *head;
 	prev = NULL;
 	while (cur)
